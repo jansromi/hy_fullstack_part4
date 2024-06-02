@@ -21,7 +21,10 @@ const favoriteBlog = (blogs) =>  {
   if (!blogs) return null
   return blogs.reduce((max, blog) => max.likes > blog.likes ? max : blog, blogs[0])
 }
-
+/**
+ * @param {*} blogs 
+ * @returns author with most blogs
+ */
 const mostBlogs = (blogs) => {
   if (!blogs) return null
   const authors = _.countBy(blogs, 'author')
@@ -29,6 +32,10 @@ const mostBlogs = (blogs) => {
   return authorWithMostBlogs ? { author: authorWithMostBlogs[0], blogs: authorWithMostBlogs[1] } : null
 }
 
+/**
+ * @param {*} blogs 
+ * @returns author with most overall likes
+ */
 const mostLikes = (blogs) => {
   if (!blogs) return null
   const auhtorsAndLikes = blogs.reduce((acc, blog) => {
