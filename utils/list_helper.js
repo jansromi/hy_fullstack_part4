@@ -27,11 +27,26 @@ const mostBlogs = (blogs) => {
   const authors = _.countBy(blogs, 'author')
   const authorWithMostBlogs = _.maxBy(_.toPairs(authors), 1)
   return authorWithMostBlogs ? { author: authorWithMostBlogs[0], blogs: authorWithMostBlogs[1] } : null
-} 
+}
+
+const mostLikes = (blogs) => {
+  if (!blogs) return null
+  const auhtorsAndLikes = blogs.reduce((acc, blog) => {
+    const foundAuthor = acc.find(author => author.author === blog.author);
+    if (foundAuthor) {
+      foundAuthor.likes += blog.likes
+    } else {
+      acc.push({author: blog.author, likes: blog.likes});
+    }
+    return acc;
+  }, []);
+  return auhtorsAndLikes.reduce((max, blog) => max.likes > blog.likes ? max : blog);
+}
 
 module.exports = {
   dummy,
   totalLikes,
   favoriteBlog,
-  mostBlogs
+  mostBlogs,
+  mostLikes
 }
